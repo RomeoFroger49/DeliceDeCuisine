@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Home{% endblock %}
+
+{% block body %}
+    <a href="{{ path('app_register') }}">Register</a>
+    <a href="{{ path('app_login') }}">Connexion</a>
+    <a href="{{ path('app_logout') }}">logout</a>
+
+{% endblock %}
