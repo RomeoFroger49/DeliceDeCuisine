@@ -1,4 +1,8 @@
 const Encore = require('@symfony/webpack-encore');
+const path = require('path');
+const glob = require('glob-all');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+
 
 
 // Manually configure the runtime environment if not already configured yet by the "encore" command.
