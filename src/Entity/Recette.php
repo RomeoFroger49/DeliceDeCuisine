@@ -23,6 +23,12 @@ class Recette
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $Time = null;
 
+    #[ORM\Column]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(length: 255, nullable: false)]
+    private ?string $file = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -65,6 +71,30 @@ class Recette
     public function setTime(\DateTimeInterface $Time): self
     {
         $this->Time = $Time;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getFile(): ?string
+    {
+        return $this->file;
+    }
+
+    public function setFile(?string $file): self
+    {
+        $this->file = $file;
 
         return $this;
     }
