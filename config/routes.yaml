@@ -3,3 +3,9 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+Dashboard:
+    resource: '@EasyAdminBundle/Controller/'
+    type: annotation
+    prefix: /admin
+

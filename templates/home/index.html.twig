@@ -15,9 +15,17 @@
                 <div class="px-6">Top recette</div>
                     <div id="test" class="w-full h-full m-auto flex flex-wrap justify-evenly">
                         {%  for recette in recettes %}
-                            <div class="w-1/4 h-full" {{ react_component('Card', {'name' : recette.name, 'time' : recette.toStringTime, 'desc': recette.description}) }}></div>
+                            <div class="w-1/4 h-full" {{ react_component('Card', {'name' : recette.name, 'time' : recette.toStringTime, 'image' :  vich_uploader_asset(recette, 'imageFile'), 'desc': recette.description}) }}></div>
+
                         {% endfor %}
                     </div>
+            </section>
+            
+            <section class="h-1/4">
+                <div class="px-6">Top recette</div>
+                <div class="w-full h-full m-auto flex flex-wrap justify-evenly">
+                    
+                </div>
             </section>
         </main>
 

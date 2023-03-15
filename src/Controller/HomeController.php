@@ -14,10 +14,12 @@ class HomeController extends AbstractController
     {
         $test = $this->getUser();
         $recette = $recetteRepository->findAll();
+        $recette1 = $recetteRepository->findBy(['Name' => 'pain']);
 
         return $this->render('home/index.html.twig', [
             'user' => $test,
-            'recettes' => $recette
+            'recettes' => $recette,
+            'recette1' => $recette1,
         ]);
     }
 }

@@ -3,10 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\RecetteRepository;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\Entity;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: RecetteRepository::class)]
+#[Vich\Uploadable]
+
 class Recette
 {
     #[ORM\Id]
@@ -28,6 +35,19 @@ class Recette
 
     #[ORM\Column(length: 255, nullable: false)]
     private ?string $file = null;
+
+    #[Vich\UploadableField(mapping: 'recette_images', fileNameProperty: 'file')]
+    private ?File $imageFile = null;
+
+
+    /**
+     * @throws \Exception
+     */
+    public function __construct()
+    {
+        $timeZone = new \DateTimeZone('Europe/Paris');
+        $this->createdAt = new \DateTime('now', $timeZone);
+    }
 
     public function getId(): ?int
     {
@@ -80,9 +100,9 @@ class Recette
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(\DateTime $time): self
     {
-        $this->createdAt = $createdAt;
+        $this->createdAt = $time ;
 
         return $this;
     }
@@ -96,6 +116,23 @@ class Recette
     {
         $this->file = $file;
 
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function setImageFile(?File $file): self
+    {
+        $this->imageFile = $file;
+        if ($file) {
+            $this->createdAt = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
+        }
         return $this;
     }
 }
