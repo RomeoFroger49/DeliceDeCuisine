@@ -57,6 +57,11 @@ class Recette
         return $this->Time;
     }
 
+    public function getToStringTime(): ?string
+    {
+        return $this->Time->format("H:i");
+    }
+
     public function setTime(\DateTimeInterface $Time): self
     {
         $this->Time = $Time;
