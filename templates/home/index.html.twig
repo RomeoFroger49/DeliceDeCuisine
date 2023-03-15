@@ -4,7 +4,7 @@
 
 {% block body %}
     <body class="bg-gray-300 h-screen font-semibold ">
-        {% include 'base.html.twig' %}
+        {% include 'base/index.html.twig' %}
 
         <main class="relative h-full w-full">
             <section class=" h-1/4 flex align-middle">
@@ -20,6 +20,8 @@
                     </div>
             </section>
         </main>
+
+    {% include 'base/footer.html.twig' %}
     </body>
 
 {% endblock %}
