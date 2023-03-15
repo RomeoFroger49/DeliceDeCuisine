@@ -23,7 +23,7 @@ class Recette
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $Time = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(length: 255, nullable: false)]
