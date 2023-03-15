@@ -29,15 +29,18 @@
             </div>
         </header>
 
-        <main class="relative h-full">
+        <main class="relative h-full w-full">
             <section class=" h-1/4 flex align-middle">
                 <p class="m-auto text-3xl text-green-700">Bienvenue sur mon blog recette {{ user }}</p>
             </section>
 
-            <section class="h-2/4 ">
-                <div class="container h-full">
-                    <p class="text-2xl text-green-700">Les dernières recettes</p>
-                </div>
+            <section class="">
+                <div class="px-6">Top recette</div>
+                    <div id="test" class="w-full h-full m-auto flex flex-wrap justify-evenly">
+                        {%  for recette in recettes %}
+                            <div class="w-1/4 h-full" {{ react_component('Card', {'name' : recette.name, 'time' : recette.toStringTime, 'desc': recette.description}) }}></div>
+                        {% endfor %}
+                    </div>
             </section>
         </main>
     </body>
