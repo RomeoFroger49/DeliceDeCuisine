@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/recette')]
 class RecetteController extends AbstractController
 {
+
+
     #[Route('/', name: 'app_recette_index', methods: ['GET'])]
     public function index(RecetteRepository $recetteRepository): Response
     {
@@ -43,8 +45,11 @@ class RecetteController extends AbstractController
     #[Route('/{id}', name: 'app_recette_show', methods: ['GET'])]
     public function show(Recette $recette): Response
     {
+        $test = $this->getUser();
+
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
+            'user' => $test,
         ]);
     }
 

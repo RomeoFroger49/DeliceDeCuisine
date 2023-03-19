@@ -19,12 +19,13 @@
                         {%  for recette in recettes %}
                             <div class="w-1/4 h-full ">
                                 <div class="w-full h-full ">
-                                    <div class="w-full h-64 bg-cover bg-center rounded-t " style="background-image: url({{ vich_uploader_asset(recette, recette.imageFile) }})" href="{{ path('app_recette_index') }}"> </div>
+                                    <a class="w-full " href="{{ path('app_recette_show', {'id': recette.id}) }}">
+                                        <div class="w-full h-64 bg-cover bg-center rounded-t " style="background-image: url({{ vich_uploader_asset(recette, recette.imageFile) }})" href="{{ path('app_recette_index') }}"> </div>
+                                    </a>
                                     <div class="px-6 py-4">
                                         <div class="mb-2 text-xl font-bold text-gray-800">{{ recette.name }}</div>
                                         <p class="text-base text-gray-700">Temps : {{ recette.toStringTime }} H</p>
                                         <p class="text-base text-gray-700">{{ recette.description }}.</p>
-                                        <a class="w-1/3 rounded bg-green-800" href="{{ path('app_recette_show', {'id': recette.id}) }}">show</a>
                                     </div>
                                 </div>
                             </div>
