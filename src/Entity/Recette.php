@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping\Entity;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: RecetteRepository::class)]
 #[Vich\Uploadable]
@@ -38,6 +40,10 @@ class Recette
 
     #[Vich\UploadableField(mapping: 'recette_images', fileNameProperty: 'file')]
     private ?File $imageFile = null;
+
+    #[Assert\Range(min: 1, max: 3)]
+    #[ORM\Column]
+    private ?int $prix = null;
 
 
     /**
@@ -77,6 +83,7 @@ class Recette
 
         return $this;
     }
+
 
     public function getTime(): ?\DateTimeInterface
     {
@@ -133,6 +140,18 @@ class Recette
         if ($file) {
             $this->createdAt = new \DateTime('now', new \DateTimeZone('Europe/Paris'));
         }
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(int $prix): self
+    {
+        $this->prix = $prix;
+
         return $this;
     }
 }

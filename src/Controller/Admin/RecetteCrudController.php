@@ -8,6 +8,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TimeField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -30,6 +31,7 @@ class RecetteCrudController extends AbstractCrudController
             DateTimeField::new('createdAt')->onlyOnIndex(),
             TextField::new('imageFile')->setFormType(VichImageType::class)->onlyWhenCreating(),
             ImageField::new('file')->setBasePath('uploads/recette_images')->onlyOnIndex(),
+            IntegerField::new('prix'),
         ];
     }
 
