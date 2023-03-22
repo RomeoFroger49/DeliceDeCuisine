@@ -13,12 +13,12 @@ class BaseController extends AbstractController
     #[Route('/base', name: 'app_base')]
     public function index(Request $request, RecetteRepository $recetteRepository): Response
     {
-        $info = $recetteRepository->findAll();
 
+        $recette = $recetteRepository->findAll();
 
         return $this->render('base/index.html.twig', [
             'controller_name' => 'BaseController',
-            'info' => $info,
+            'recettes' => $recette,
         ]);
     }
 }

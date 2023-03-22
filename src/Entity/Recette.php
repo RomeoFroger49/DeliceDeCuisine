@@ -55,6 +55,11 @@ class Recette
         $this->createdAt = new \DateTime('now', $timeZone);
     }
 
+    public function __toString(): string
+    {
+        return $this->Name;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
