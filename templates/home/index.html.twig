@@ -20,7 +20,7 @@
                             <div class="w-1/4 h-full ">
                                 <div class="w-full h-full ">
                                     <a class="w-full " href="{{ path('app_recette_show', {'id': recette.id}) }}">
-                                        <div class="w-full h-64 bg-cover bg-center rounded-t " style="background-image: url({{ vich_uploader_asset(recette, recette.imageFile) }})" href="{{ path('app_recette_index') }}"> </div>
+                                        <div class="w-full h-64 bg-cover bg-center rounded-t " style="background-image: url({{ vich_uploader_asset(recette, recette.imageFile) }})" > </div>
                                     </a>
                                     <div class="px-6 py-4">
                                         <div class="mb-2 text-xl font-bold text-gray-800">{{ recette.name }}</div>

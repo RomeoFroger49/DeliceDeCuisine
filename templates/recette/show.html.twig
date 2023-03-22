@@ -4,41 +4,24 @@
 
 {% block body %}
     <body class=" h-screen font-semibold " style="background-color: rgb(251,244,232)">
-        {{ include('base/index.html.twig')}}
-            <h1>Recette</h1>
-
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <th>Id</th>
-                        <td>{{ recette.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Name</th>
-                        <td>{{ recette.Name }}</td>
-                    </tr>
-                    <tr>
-                        <th>Description</th>
-                        <td>{{ recette.Description }}</td>
-                    </tr>
-                    <tr>
-                        <th>Time</th>
-                        <td>{{ recette.Time ? recette.Time|date('H:i:s') : '' }}</td>
-                    </tr>
-                    <tr>
-                        <th>CreatedAt</th>
-                        <td>{{ recette.createdAt ? recette.createdAt|date('H:i:s') : '' }}</td>
-                    </tr>
-                    <tr>
-                        <th>File</th>
-                        <td>{{ recette.file }}</td>
-                    </tr>
-                    <tr>
-                        <th>Prix</th>
-                        <td>{{ recette.prix }}</td>
-                    </tr>
-                </tbody>
-            </table>
+    {{ include('base/index.html.twig')}}
+        <main class="  h-full w-full ">
+            <div class="w-4/5 h-full m-auto mt-4">
+                <div class="container m-auto h-4/5 p-4 shadow-xl">
+                    <h1 class="text-4xl text-center font-bold text-gray-800 pb-4">{{ recette.name }}</h1>
+                    <div class="flex flex-col w-full h-full">
+                        <div class="w-2/3 h-1/2 bg-cover bg-center rounded-t m-auto" style="background-image: url({{ vich_uploader_asset(recette, recette.imageFile) }})"></div>
+                        <div class="w-full h-1/2 flex flex-col ">
+                            <p class="m-auto">{{ recette.description }}</p>
+                            <p class="m-auto">{{ recette.toStringTime }} H</p>
+                            <p class="m-auto">
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        {{ include('base/footer.html.twig')}}
     </body>
 
 {% endblock %}
