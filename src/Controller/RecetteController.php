@@ -43,13 +43,15 @@ class RecetteController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_recette_show', methods: ['GET'])]
-    public function show(Recette $recette): Response
+    public function show(Recette $recette, RecetteRepository $recetteRepository): Response
     {
+        $recettes_navbar = $recetteRepository->findAll();
         $test = $this->getUser();
 
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
             'user' => $test,
+            'recettes' => $recettes_navbar,
         ]);
     }
 

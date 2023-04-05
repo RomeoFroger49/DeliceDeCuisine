@@ -16,7 +16,7 @@ function filterList() {
     }
 }
 
-function toggleListVisibility(show) {
+/*function toggleListVisibility(show) {
     const listElement = document.getElementById("list");
     listElement.style.display = show ? "block" : "none";
-}
+}*/

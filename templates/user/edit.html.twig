@@ -3,11 +3,23 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Edit User</h1>
+    <body class=" h-screen font-semibold " style="background-color: rgb(251,244,232)">
+        {% include 'base/index.html.twig'%}
+        <main  class="  h-full w-full ">
+            <div class="w-full h-2/3 flex justify-center">
+                <div class="w-1/3 h-1/2 mt-14 flex flex-col justify-center shadow">
+                    <div class="">
+                        <h1>Modifier le profile</h1>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+                        {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+                        <a href="{{ path('app_home') }}">back to Site</a>
 
-    {{ include('user/_delete_form.html.twig') }}
+                        {{ include('user/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </main>
+        {{ include('base/footer.html.twig') }}
+    </body>
 {% endblock %}
