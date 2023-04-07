@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Commentaire;
 use App\Entity\Recette;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -30,5 +31,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToRoute('Home Site', 'fa fa-globe', 'app_home');
         yield MenuItem::linkToCrud('User', 'fa fa-user', User::class);
         yield MenuItem::linkToCrud('Recette','fa fa-utensils', Recette::class);
+        yield  MenuItem::linkToCrud('Commentaire','fa fa-comment', Commentaire::class);
     }
 }

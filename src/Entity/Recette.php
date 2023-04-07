@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\RecetteRepository;
-use DateTimeInterface;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\Entity;
-use Symfony\Component\Validator\Constraints\DateTime;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -32,7 +31,7 @@ class Recette
     #[ORM\Column(type: Types::TIME_MUTABLE)]
     private ?\DateTimeInterface $Time = null;
 
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(length: 255, nullable: false)]
@@ -45,14 +44,14 @@ class Recette
     #[ORM\Column]
     private ?int $prix = null;
 
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Commentaire::class)]
+    private Collection $commentaires;
 
-    /**
-     * @throws \Exception
-     */
+
     public function __construct()
     {
-        $timeZone = new \DateTimeZone('Europe/Paris');
-        $this->createdAt = new \DateTime('now', $timeZone);
+        $this->createdAt = new \DateTime();
+        $this->commentaires = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -156,6 +155,36 @@ class Recette
     public function setPrix(int $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commentaire>
+     */
+    public function getCommentaires(): Collection
+    {
+        return $this->commentaires;
+    }
+
+    public function addCommentaire(Commentaire $commentaire): self
+    {
+        if (!$this->commentaires->contains($commentaire)) {
+            $this->commentaires->add($commentaire);
+            $commentaire->setRecette($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommentaire(Commentaire $commentaire): self
+    {
+        if ($this->commentaires->removeElement($commentaire)) {
+            // set the owning side to null (unless already changed)
+            if ($commentaire->getRecette() === $this) {
+                $commentaire->setRecette(null);
+            }
+        }
 
         return $this;
     }

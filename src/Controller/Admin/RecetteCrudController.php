@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Recette;
 use Doctrine\ORM\Mapping\Entity;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
@@ -26,12 +27,12 @@ class RecetteCrudController extends AbstractCrudController
     {
         return [
             TextField::new('name'),
-            TextField::new('description'),
-            TimeField::new('time'),
+            TextField::new('description')->hideOnIndex(),
+            TimeField::new('time')->hideOnIndex(),
             DateTimeField::new('createdAt')->onlyOnIndex(),
-            TextField::new('imageFile')->setFormType(VichImageType::class)->onlyWhenCreating(),
-            ImageField::new('file')->setBasePath('uploads/recette_images')->onlyOnIndex(),
+            TextField::new('imageFile')->setFormType(VichImageType::class)->onlyOnForms(),
             IntegerField::new('prix'),
+            AssociationField::new('commentaires')->hideWhenCreating(),
         ];
     }
 

@@ -2,13 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Commentaire;
 use App\Entity\Recette;
 use App\Form\RecetteType;
+use App\Repository\CommentaireRepository;
 use App\Repository\RecetteRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Form\CommentaireType;
+
 
 #[Route('/recette')]
 class RecetteController extends AbstractController
@@ -42,16 +46,30 @@ class RecetteController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_recette_show', methods: ['GET'])]
-    public function show(Recette $recette, RecetteRepository $recetteRepository): Response
+    #[Route('/{id}', name: 'app_recette_show', methods: ['GET', 'POST'])]
+    public function show(Recette $recette, RecetteRepository $recetteRepository, Request $request, CommentaireRepository $commentaireRepository): Response
     {
         $recettes_navbar = $recetteRepository->findAll();
+        $commentaires = $commentaireRepository->findBy(['recette' => $recette]);
         $test = $this->getUser();
+        $commentaire = new Commentaire();
+        $commentaire->setRecette($recette);
+        $commentaire->setUser($this->getUser());
+        $commentaire->setCreatedAt(new \DateTime());
+        $form = $this->createForm(CommentaireType::class, $commentaire);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commentaireRepository->save($commentaire, true);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
+        }
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
             'user' => $test,
             'recettes' => $recettes_navbar,
+            'form' => $form->createView(),
+            'commentaire' => $commentaire,
+            'commentaires' => $commentaires,
         ]);
     }
 
@@ -64,10 +82,10 @@ class RecetteController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $recetteRepository->save($recette, true);
 
-            return $this->redirectToRoute('app_recette_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('recette/edit.html.twig', [
+        return $this->render('recette/edit.html.twig', [
             'recette' => $recette,
             'form' => $form,
         ]);
