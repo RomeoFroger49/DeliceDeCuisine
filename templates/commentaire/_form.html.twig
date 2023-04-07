@@ -1,4 +1,11 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-<button class="btn" type="submit">{{ button_label|default('Ajouter') }}</button>
+    {% for i in 1..5 %}
+    <span id="{{ i }}"><i  class="far fa-star text-red-500 "></i></span>
+    {% endfor %}
+    {% if app.user is not null %}
+    <button class="btn" type="submit">{{ button_label|default('Ajouter') }}</button>
+    {% else %}
+    <a class="btn" type="button" href="{{ path('app_login') }}" >Veuillez vous connectez pour commenter</a>
+    {% endif %}
 {{ form_end(form) }}

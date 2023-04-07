@@ -47,6 +47,11 @@ class Recette
     #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Commentaire::class)]
     private Collection $commentaires;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $noteMoyenne = null;
+
+
+
 
     public function __construct()
     {
@@ -188,4 +193,22 @@ class Recette
 
         return $this;
     }
+
+    public function getNoteMoyenne(): ?float
+    {
+        return $this->noteMoyenne;
+    }
+
+    public function setNoteMoyenne(): self
+    {
+        $this->noteMoyenne = 0;
+        $liste = $this->getCommentaires();
+        foreach ($liste as $commentaire) {
+            $this->noteMoyenne += $commentaire->getNote();
+        }
+        $this->noteMoyenne = $this->noteMoyenne / (count($liste)>0? count($liste):1);
+
+        return $this;
+    }
+
 }

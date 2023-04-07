@@ -16,7 +16,10 @@ function filterList() {
     }
 }
 
-/*function toggleListVisibility(show) {
-    const listElement = document.getElementById("list");
-    listElement.style.display = show ? "block" : "none";
-}*/
+function stars() {
+    const star = document.getElementById("star");
+    star.classList.toggle("fa-star");
+    star.classList.toggle("fa-star-o");
+}
+
+export { filterList, stars };

@@ -15,7 +15,7 @@
 
             <section class="pt-14">
 
-                    <div id="test" class="w-full h-full m-auto flex flex-wrap justify-evenly">
+                    <div class="w-full h-full m-auto flex flex-wrap justify-evenly">
                         {%  for recette in recettes %}
                             <div class="w-1/4 h-full ">
                                 <div class="w-full h-full ">
@@ -26,10 +26,19 @@
                                         <div class="mb-2 text-xl font-bold text-gray-800">{{ recette.name }}</div>
                                         <p class="text-base text-gray-700">Temps : {{ recette.toStringTime }} H</p>
                                         <p class="text-base text-gray-700">{{ recette.description }}.</p>
+                                        <div class="flex items-center" id="list-star">
+                                                {% for i in 1..5 %}
+                                                    {% if recette.noteMoyenne >= i %}
+                                                        <i class="fas fa-star text-red-500"></i>
+                                                    {% else %}
+                                                        <i class="far fa-star text-red-500"></i>
+                                                    {% endif %}
+                                                {% endfor %}
+                                                <p class="ml-2.5">({{ recette.commentaires.count }} avis)</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
                         {% endfor %}
                     </div>
             </section>

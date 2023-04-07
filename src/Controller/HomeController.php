@@ -13,7 +13,11 @@ class HomeController extends AbstractController
     public function index(RecetteRepository $recetteRepository): Response
     {
         $test = $this->getUser();
-        $recette = $recetteRepository->findAll();
+        $recette = $recetteRepository->findBy([], ['noteMoyenne' => 'DESC'], 3);
+        foreach ($recette as $recettes) {
+                $recettes->setNoteMoyenne();
+                $recetteRepository->save($recettes, true);
+        }
 
 
         return $this->render('home/index.html.twig', [
