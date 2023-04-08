@@ -16,10 +16,6 @@ function filterList() {
     }
 }
 
-function stars() {
-    const star = document.getElementById("star");
-    star.classList.toggle("fa-star");
-    star.classList.toggle("fa-star-o");
-}
 
-export { filterList, stars };
+
+export { filterList };

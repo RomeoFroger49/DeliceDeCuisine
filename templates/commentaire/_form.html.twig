@@ -1,11 +1,23 @@
+
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    {% for i in 1..5 %}
-    <span id="{{ i }}"><i  class="far fa-star text-red-500 "></i></span>
-    {% endfor %}
+
+    <div id="form" class="flex items-center">
+        <p class="mr-1.5">Note :</p>
+        {% for i in 1..5 %}
+        <i id="{{ i }}"  onclick="getValue({{ i }}), changeStar({{ i }})"  class="far fa-star text-red-500 "></i>
+        <i id="{{ i }}-h"  onclick="getValue({{ i }}),changeStar({{ i }})"  hidden="hidden"  class="fas fa-star text-red-500 m-0"></i>
+        {% endfor %}
+    </div>
+
     {% if app.user is not null %}
-    <button class="btn" type="submit">{{ button_label|default('Ajouter') }}</button>
+        <button class="border border-black" type="submit">{{ button_label|default('Publier') }}</button>
     {% else %}
-    <a class="btn" type="button" href="{{ path('app_login') }}" >Veuillez vous connectez pour commenter</a>
+        <a class="btn" type="button" href="{{ path('app_login') }}" >Veuillez vous connectez pour commenter</a>
     {% endif %}
+
 {{ form_end(form) }}
+
+{% block javascripts %}
+    <script src="{{ asset('note.js') }}"></script>
+{% endblock %}
