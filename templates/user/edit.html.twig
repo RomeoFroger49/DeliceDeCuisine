@@ -7,16 +7,18 @@
         {% include 'base/index.html.twig'%}
         <main  class="  h-5/6 w-full " style="height: 90%">
             <div class="w-full h-full flex justify-center items-center">
-                <div class="w-2/3 h-1/2  flex flex-col justify-center shadow">
-                        <div class="flex justify-center">Modifier le profile</div>
+                <div class="w-2/3 h-1/2  flex flex-col justify-evenly border-2 border-black rounded-xl">
+                        <div class="flex justify-center">
+                            <p>Modifier le profil</p>
+                        </div>
 
                         {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
-                        <div class="flex justify-between">
+                        <div class="w-2/3 mx-auto flex justify-between">
 
-                            <a href="{{ path('app_home') }}"><i class="fa-solid fa-arrow-left pr-2"></i>Retour au site</a>
+                            <a class="hover:underline" href="{{ path('app_home') }}"><i class="fa-solid fa-arrow-left pr-2"></i>Retour au site</a>
 
-                            <div class="flex items-center text-red-500">
+                            <div class=" flex items-center text-red-500 ">
                                 <i class="fa-solid fa-trash pr-2"></i>
                                 {{ include('user/_delete_form.html.twig') }}
                             </div>

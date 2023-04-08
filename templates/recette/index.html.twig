@@ -3,43 +3,38 @@
 {% block title %}Recette index{% endblock %}
 
 {% block body %}
-    <h1>Recette index</h1>
+    <body class="relative h-auto w-screen font-semibold " style="background-color: rgb(251,244,232)">
+        {{ include('base/index.html.twig')}}
+        <main class="h-full w-screen flex justify-center py-4">
+            <section class="mt-4 h-full w-3/5 flex justify-center">
+                <div class="w-3/4 h-auto flex flex-col items-center ">
+                    <div class="flex flex-col justify-center items-center mb-2">
+                        <h1 class="text-4xl font-bold text-center text-gray-800">Recettes</h1>
+                    </div>
+                    {% for recette in recettesNav %}
+                        <div class="flex flex-row justify-between items-center w-full h-1/6 border-b-2 border-gray-300">
+                            <div class="w-full h-64 bg-cover bg-center rounded-t " style="background-image: url({{ vich_uploader_asset(recette, recette.imageFile) }})" > </div>
+                            <div class="flex flex-row justify-evenly items-center w-2/3 h-full">
+                                <div class="flex flex-col justify-evenly w-3/4 h-full">
+                                    <h2 class="text-2xl font-bold text-gray-800">{{ recette.name }}</h2>
+                                    <p class="text-gray-800 text-xl">{{ recette.description }}</p>
+                                    <p class="underline">publié le {{ recette.createdAt.format("j/m/y") }} à {{ recette.createdAt.format('H:m') }}</p>
+                                </div>
+                            </div>
+                            <div class="flex flex-row justify-center items-center w-1/3 h-full">
+                                <a href="{{ path('app_recette_show', {'id': recette.id}) }}" class="text-gray-800 text-center text-xl font-bold w-1/2 h-3/4 flex justify-center items-center rounded-md">Voir</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="flex flex-col justify-center items-center w-full h-screen">
+                            <h2 class="text-2xl font-bold text-gray-800">Aucune recette</h2>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+        </main>
+        {{ include('base/footer.html.twig') }}
+    </body>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Time</th>
-                <th>CreatedAt</th>
-                <th>File</th>
-                <th>Prix</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for recette in recettes %}
-            <tr>
-                <td>{{ recette.id }}</td>
-                <td>{{ recette.Name }}</td>
-                <td>{{ recette.Description }}</td>
-                <td>{{ recette.Time ? recette.Time|date('H:i:s') : '' }}</td>
-                <td>{{ recette.createdAt ? recette.createdAt|date('H:i:s') : '' }}</td>
-                <td>{{ recette.file }}</td>
-                <td>{{ recette.prix }}</td>
-                <td>
-                    <a href="{{ path('app_recette_show', {'id': recette.id}) }}">show</a>
-                    <a href="{{ path('app_recette_edit', {'id': recette.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_recette_new') }}">Create new</a>
 {% endblock %}

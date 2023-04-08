@@ -17,7 +17,6 @@ class BaseController extends AbstractController
         $recette = $recetteRepository->findAll();
 
         return $this->render('base/index.html.twig', [
-            'controller_name' => 'BaseController',
             'recettes' => $recette,
         ]);
     }
