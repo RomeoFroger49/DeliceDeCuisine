@@ -51,6 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->createdAt = new \DateTime();
         $this->commentaires = new ArrayCollection();
+        $this->roles = ['ROLE_ADMIN'];
     }
 
     public function __toString(): string
