@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\User1Type;
+use App\Repository\CommentaireRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\UserRepository;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,17 +68,22 @@ class UserController extends AbstractController
         return $this->renderForm('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
-            'recettes' => $recettes_navbar,
+            'recettesNav' => $recettes_navbar,
         ]);
     }
 
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
+     */
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, UserRepository $userRepository): Response
+    public function delete(Request $request, User $user, UserRepository $userRepository, CommentaireRepository $commentaireRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
-            $userRepository->remove($user, true);
+            $this->container->get('security.token_storage')->setToken(null);
+            $userRepository->remove($user,$commentaireRepository, true);
         }
 
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_logout', [], Response::HTTP_SEE_OTHER);
     }
 }

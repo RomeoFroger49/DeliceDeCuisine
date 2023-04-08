@@ -22,7 +22,7 @@
                 <label class=" p-1 font-light">
                     <input class="" type="text" id="searchInput" name="Research" oninput="filterList()"  placeholder="Rechercher">
                     <ul class="absolute bg-white w-full" id="list">
-                        {% for recipe in recettes|slice(0,8) %}
+                        {% for recipe in recettesNav|slice(0,8) %}
                             <a href="{{ path('app_recette_show', {'id': recipe.id}) }}">
                             <li class="border-b-2 border-gray-200">
                                 <p>{{ recipe.name }}</p>

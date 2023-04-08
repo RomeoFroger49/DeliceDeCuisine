@@ -66,7 +66,7 @@ class RecetteController extends AbstractController
         return $this->render('recette/show.html.twig', [
             'recette' => $recette,
             'user' => $test,
-            'recettes' => $recettes_navbar,
+            'recettesNav' => $recettes_navbar,
             'form' => $form->createView(),
             'commentaire' => $commentaire,
             'commentaires' => $commentaires,

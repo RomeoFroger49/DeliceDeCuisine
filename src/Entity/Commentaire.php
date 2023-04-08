@@ -20,7 +20,7 @@ class Commentaire
     #[ORM\Column(length: 255)]
     private ?string $contenue = null;
 
-    #[Assert\Range(min: 0, max: 5)]
+    #[Assert\Range(min: 1, max: 5)]
     #[ORM\Column]
     private ?int $note = null;
 

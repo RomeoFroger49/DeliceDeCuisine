@@ -3,20 +3,24 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <body class=" h-screen font-semibold " style="background-color: rgb(251,244,232)">
+    <body class=" h-screen " style="background-color: rgb(251,244,232)">
         {% include 'base/index.html.twig'%}
-        <main  class="  h-full w-full ">
-            <div class="w-full h-2/3 flex justify-center">
-                <div class="w-1/3 h-1/2 mt-14 flex flex-col justify-center shadow">
-                    <div class="">
-                        <h1>Modifier le profile</h1>
+        <main  class="  h-5/6 w-full " style="height: 90%">
+            <div class="w-full h-full flex justify-center items-center">
+                <div class="w-2/3 h-1/2  flex flex-col justify-center shadow">
+                        <div class="flex justify-center">Modifier le profile</div>
 
                         {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
-                        <a href="{{ path('app_home') }}">back to Site</a>
+                        <div class="flex justify-between">
 
-                        {{ include('user/_delete_form.html.twig') }}
-                    </div>
+                            <a href="{{ path('app_home') }}"><i class="fa-solid fa-arrow-left pr-2"></i>Retour au site</a>
+
+                            <div class="flex items-center text-red-500">
+                                <i class="fa-solid fa-trash pr-2"></i>
+                                {{ include('user/_delete_form.html.twig') }}
+                            </div>
+                        </div>
                 </div>
             </div>
         </main>

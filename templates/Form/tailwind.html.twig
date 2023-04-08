@@ -1,0 +1,32 @@
+{% use 'tailwind_2_layout.html.twig' %}
+
+{%- block form_row -%}
+    {%- set row_attr = row_attr|merge({ class: row_attr.class|default(row_class|default('my-2 px-3')) }) -%}
+    {{- parent() -}}
+{%- endblock form_row -%}
+
+{%- block form_label -%}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block text-gray-800')) }) -%}
+    {{- parent() -}}
+{%- endblock form_label -%}
+
+{%- block form_widget_simple -%}
+    {%- set attr = attr|merge({ class: attr.class|default('form-input block w-full mt-1') }) -%}
+    {{- parent() -}}
+{%- endblock form_widget_simple -%}
+
+{%- block button_widget -%}
+    {%- set attr = attr|merge({ class: attr.class|default('btn btn-primary bg-color-red') }) -%}
+    {{- parent() -}}
+{%- endblock button_widget -%}
+
+{%- block form_widget_compound -%}
+    {%- set attr = attr|merge({ class: attr.class|default('form-input block w-full mt-1') }) -%}
+    {{- parent() -}}
+{%- endblock form_widget_compound -%}
+
+{%- block form_widget -%}
+    {%- set attr = attr|merge({ class: attr.class|default('form-input block w-full mt-1 border border-black rounded') }) -%}
+    {{- parent() -}}
+{%- endblock form_widget -%}
+

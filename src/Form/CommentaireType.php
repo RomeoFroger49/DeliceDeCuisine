@@ -14,9 +14,7 @@ class CommentaireType extends AbstractType
     {
         $builder
             ->add('contenue')
-            ->add('note', HiddenType::class, [
-                'data' => 0,
-            ]);
+            ->add('note');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

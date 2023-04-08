@@ -3,10 +3,15 @@
 {% block title %}Recette{% endblock %}
 
 {% block body %}
-    <body class=" h-screen font-semibold " style="background-color: rgb(251,244,232)">
+    <body class="relative h-screen font-semibold " style="background-color: rgb(251,244,232)">
+        <div id="window" class="absolute h-full w-full flex justify-center items-center hidden">
+            <div class="w-1/2 h-1/2 bg-white">
+                <button type="button" onclick="document.getElementById('window').style.display = 'none'">Close</button>
+            </div>
+        </div>
     {{ include('base/index.html.twig')}}
-        <main class="  h-full w-full ">
-            <div class="w-4/5 h-full m-auto mt-4">
+        <main onclick="Show()" class=" h-full  w-full">
+            <div class="w-4/5 h-4/5 m-auto mt-4">
                 <section class="container m-auto h-4/5 p-4 shadow-xl">
                     <h1 class="text-4xl text-center font-bold text-gray-800 pb-4">{{ recette.name }}</h1>
                     <div class="flex flex-col w-full h-full">
@@ -17,19 +22,16 @@
                             </div>
                     </div>
                 </section>
-                <section class="mt-4 flex flex-col ">
-                    <div class="w-full flex flex-col border border-black">
-                        <div class="">
+                <section class="h-1/5 mt-4 flex flex-col border border-black">
+                    <div class="h-1/2 w-full flex flex-col">
                             {{ include('commentaire/_form.html.twig') }}
-                        </div>
                     </div>
-                    <div>
-                        {% for each in commentaires %}
-                        <p>{{ each.user.username }}</p>
-                        <p>{{ each.contenue }}</p>
-                        <p>{{ each.note }}</p>
-                        <p>{{ each.createdAt.format('Y/m/d H:i:s') }}</p>
-                        {% endfor %}
+                    <div class="h-1/2 flex items-center justify-center align-middle">
+                        {% if recette.commentaires.count == 0  %}
+                        <button class="border border-black rounded-2xl p-2 bg-red-600 shadow-xl">Pas de commentaires</button>
+                        {% else %}
+                        <button class="border border-black rounded-2xl p-2 bg-red-500 shadow-xl" onclick="document.getElementById('window').style.display ='flex'">Voir les Commentaires ({{ recette.commentaires.count }})</button>
+                        {% endif %}
                     </div>
                 </section>
             </div>
