@@ -44,7 +44,7 @@ class Recette
     #[ORM\Column]
     private ?int $prix = null;
 
-    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Commentaire::class)]
+    #[ORM\OneToMany(mappedBy: 'recette', targetEntity: Commentaire::class, cascade: ['persist', 'remove'])]
     private Collection $commentaires;
 
     #[ORM\Column(nullable: true)]

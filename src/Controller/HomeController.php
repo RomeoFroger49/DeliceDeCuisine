@@ -12,9 +12,10 @@ class HomeController extends AbstractController
     #[Route('/', name: 'app_home')]
     public function index(RecetteRepository $recetteRepository): Response
     {
-        $recettesNav = $recetteRepository->findAll();
+        $recettesAll = $recetteRepository->findAll();
         $recette = $recetteRepository->findBy([], ['noteMoyenne' => 'DESC'], 3);
-        foreach ($recette as $recettes) {
+
+        foreach ($recettesAll as $recettes) {
                 $recettes->setNoteMoyenne();
                 $recetteRepository->save($recettes, true);
         }
@@ -23,7 +24,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'user' => $this->getUser(),
             'recettes' => $recette,
-            'recettesNav' => $recettesNav,
+            'recettesNav' => $recettesAll,
         ]);
     }
 }
