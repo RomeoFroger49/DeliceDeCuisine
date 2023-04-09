@@ -4,21 +4,59 @@
 
 {% block body %}
     <body class="relative h-screen font-semibold " style="background-color: rgb(251,244,232)">
-        <div id="window" class="absolute h-full w-full flex justify-center items-center hidden">
-            <div class="w-1/2 h-1/2 bg-white">
-                <button type="button" onclick="document.getElementById('window').style.display = 'none'">Close</button>
+        <div id="window" class="absolute h-full w-full flex justify-center items-center hidden ">
+            <div class="w-1/2 h-1/2 bg-white overflow-scroll rounded fixed border-8 border-black">
+                <div class="px-2 flex justify-between my-1 border-b-4 border-black">
+                    <p>Commentaires ({{ recette.commentaires.count }})</p>
+                    <button type="button" class="border border-black rounded-2xl px-2" onclick="document.getElementById('window').style.display = 'none'"><i class="fa fa-xmark"></i></button>
+                </div>
+                <div class="m-4 w-auto h-auto flex flex-col">
+                    {% for commentaire in recette.commentaires %}
+                    <div class="w-full border-b border-black flex justify-between">
+                        <div>
+                        <p>@{{ commentaire.user.username }}</p>
+                        <p>{{ commentaire.contenue }}</p>
+                            {% for i in 1..5 %}
+                                {% if commentaire.note >= i %}
+                                    <i class="fas fa-star text-red-500"></i>
+                                {% else %}
+                                    <i class="far fa-star text-red-500"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <p>Le {{ commentaire.createdAt | date('d/m/Y') }} à {{ commentaire.createdAt | date('H:i') }}</p>
+
+                        </div>
+                        <div>
+                            {% if commentaire.user == app.user %}
+                                <div class=" flex items-center text-red-500 ">
+                                    <i class="fa-solid fa-trash pr-2"></i>
+                                    {{ include('commentaire/_delete_form.html.twig') }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
+
         </div>
         <main onclick="" class=" h-full  w-full">
             <div class="w-4/5 h-4/5 m-auto mt-4">
                 <section class="container m-auto h-4/5 p-4 shadow-xl">
-                    <h1 class="text-4xl text-center font-bold text-gray-800 pb-4">{{ recette.name }}</h1>
-                    <div class="flex flex-col w-full h-full">
-                        <span class="w-2/3 h-1/2 bg-cover bg-center rounded-t m-auto" style="background-image: url({{ vich_uploader_asset(recette, recette.imageFile) }})"></span>
-                            <div class="w-full h-1/2 flex flex-col ">
-                                <p class="m-auto">{{ recette.description }}</p>
-                                <p class="m-auto">{{ recette.toStringTime }} H</p>
+                    <h1 class="text-4xl text-center font-bold text-gray-800 pb-4 p-4 border-b border-black">{{ recette.name }}</h1>
+                    <div class="h-3/4 flex items-center w-full h-full">
+                        <span class="w-1/3 h-1/2 bg-cover  rounded-t " style="background-image: url({{ vich_uploader_asset(recette, recette.imageFile) }})"></span>
+                        <div class="w-2/3 h-1/2 flex flex-col p-2">
+                            <p class="m-auto">Description :</p>
+                            <p class="m-auto">{{ recette.description }}</p>
+                            <div class="m-auto">
+                                Cout :
+                                {% for i in range(0,recette.prix-1) %}
+                                    <i class="fas fa-euro-sign text-red-500"></i>
+                                {% endfor %}
                             </div>
+                            <p class="m-auto">Temps : {{ recette.createdAt | date('H') }}H{{ recette.createdAt | date('i') }}</p>
+                        </div>
                     </div>
                 </section>
                 <section class="h-2/5 mt-4 flex flex-col ">

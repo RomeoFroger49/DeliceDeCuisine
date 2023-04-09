@@ -9,14 +9,17 @@ Ce projet est un site web de type blog qui recense des recettes de cuisine et pe
 - [Installation](#installation)
 - [Utilisation](#utilisation)
 - [Améliorations](#améliorations)
+- [Difficultés](#difficultés)
 - [Contact](#contact)
 
 ## Caractéristiques
 
-- Fonctionnalité A
-- Fonctionnalité B
-- Fonctionnalité C
-- Et bien plus encore...
+- Minimum Responsive
+- Sécurité des données (hashage des mots de passe, validation des données, crud,...)
+- Système de commentaires
+- Système d'administration
+- Frontend en Tailwind créé par moi-même
+- Fonction js simple 
 
 ## Technologies
 
@@ -77,6 +80,11 @@ Pour utiliser le projet, suivez ces étapes :
 
 - Ajouter un système de vérification d'email lors de la création de compte.
 - Ajouter une table ingrédients séparée pour pouvoir rentrer en ingrédients de chaque recette une liste d'objet {ingrédients : quantité}.
-- Ajouter un système de recherche pour les recettes (actuellement le mien est un peu pipé, car les recherches proposées sont faites via JS et lorsqu'on clique sur la recherche cela nous affiche juste toutes les recettes).
+- Ajouter un système de pagination pour les recettes.
 - Ajouter un système de filtre pour les recettes, tri alphabétique, par note moyenne, par indice de prix (1 à 3) ou même par temps ce qui peut aussi donner lieu à des rubriques telles que, 'repas étudiants', 'repas rapide', 'nos best-sellers'.
 - Ajouter un service pour envoyer les informations du controller du header vers les autres pages, car actuellement je suis obligé de mettre dans chaque render des controllers qui incluent sur leur modèle le header la variable pour ma fonction js.
+
+## Difficultés
+
+- La gestion des images a été la plus difficile. J'ai dû apprendre à utiliser la librairie VichUploaderBundle pour uploader les images et les lier à l'entité recette.
+- La gestion des commentaires a été aussi assez difficile. Créer une entité commentaires relier au user et à la recette.

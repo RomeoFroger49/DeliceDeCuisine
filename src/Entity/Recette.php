@@ -23,7 +23,7 @@ class Recette
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    public ?string $Name = null;
 
     #[ORM\Column(length: 500)]
     private ?string $Description = null;

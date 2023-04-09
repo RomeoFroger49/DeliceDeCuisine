@@ -7,6 +7,7 @@ use App\Form\User1Type;
 use App\Repository\CommentaireRepository;
 use App\Repository\RecetteRepository;
 use App\Repository\UserRepository;
+use App\Service\SearchService;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -53,8 +54,16 @@ class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, UserRepository $userRepository, RecetteRepository $recetteRepository): Response
+    public function edit(Request $request, User $user, UserRepository $userRepository, RecetteRepository $recetteRepository, CommentaireRepository $commentaireRepository, SearchService $searchService): Response
     {
+        if($request->isMethod('POST') && $request->request->get('Research') != null) {
+            $articles = $searchService->search($recetteRepository, $request);
+            return $this->render('recette/index.html.twig', [
+                'recettesNav' =>  $recetteRepository->findAll(),
+                'recettes'=> $articles,
+            ]);
+        }
+        $commentaires = $commentaireRepository->findBy(['user' => $user]);
         $form = $this->createForm(User1Type::class, $user);
         $form->handleRequest($request);
         $recettes_navbar = $recetteRepository->findAll();
@@ -69,6 +78,7 @@ class UserController extends AbstractController
             'user' => $user,
             'form' => $form,
             'recettesNav' => $recettes_navbar,
+            'commentaires' => $commentaires,
         ]);
     }
 

@@ -7,6 +7,7 @@ use App\Entity\Recette;
 use App\Form\RecetteType;
 use App\Repository\CommentaireRepository;
 use App\Repository\RecetteRepository;
+use App\Service\SearchService;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,16 +22,14 @@ class RecetteController extends AbstractController
 
 
     #[Route('/', name: 'app_recette_index', methods: ['GET', 'POST'])]
-    public function index(RecetteRepository $recetteRepository, Request $request): Response
+    public function index(RecetteRepository $recetteRepository, Request $request, SearchService $searchService): Response
     {
         $articles = $recetteRepository->findBy([], ['noteMoyenne' => 'DESC']);
         if($request->isMethod('POST') && $request->request->get('Research') != null) {
-            $search = $request->request->get('Research');
-            $name = $recetteRepository->findByExampleField($search);
-            $articles = array_unique($name, SORT_REGULAR);
+            $articles = $searchService->search($recetteRepository, $request);
             return $this->render('recette/index.html.twig', [
                 'recettesNav' =>  $recetteRepository->findAll(),
-                'recettes'=> $articles ?? $recetteRepository->findAll(),
+                'recettes'=> $articles ,
             ]);
         }
 
@@ -60,15 +59,13 @@ class RecetteController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_recette_show', methods: ['GET', 'POST'])]
-    public function show(Recette $recette, Request $request,RecetteRepository $recetteRepository, CommentaireRepository $commentaireRepository): Response
+    public function show(Recette $recette, Request $request,RecetteRepository $recetteRepository, CommentaireRepository $commentaireRepository, SearchService $searchService): Response
     {
         if($request->isMethod('POST') && $request->request->get('Research') != null) {
-            $search = $request->request->get('Research');
-            $name = $recetteRepository->findByExampleField($search);
-            $articles = array_unique($name, SORT_REGULAR);
+            $articles = $searchService->search($recetteRepository, $request);
             return $this->render('recette/index.html.twig', [
                 'recettesNav' =>  $recetteRepository->findAll(),
-                'recettes'=> $articles ?? $recetteRepository->findAll(),
+                'recettes'=> $articles,
             ]);
         }
         $recettes_navbar = $recetteRepository->findAll();
