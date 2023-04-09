@@ -18,4 +18,3 @@ function filterList() {
 
 
 
-export { filterList };
