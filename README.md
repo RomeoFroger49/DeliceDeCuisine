@@ -76,7 +76,7 @@ Pour utiliser le projet, suivez ces étapes :
 ## Améliorations
 
 - Ajouter un système de vérification d'email lors de la création de compte.
-- Ajouter une table ingrédients séparée pour pouvoir rentrer en ingrédients de chaque recette une liste d'objet ingrédients : quantité.
+- Ajouter une table ingrédients séparée pour pouvoir rentrer en ingrédients de chaque recette une liste d'objet {ingrédients : quantité}.
 - Ajouter un système de recherche pour les recettes (actuellement le mien est un peu pipé, car les recherches proposées sont faites via JS et lorsqu'on clique sur la recherche cela nous affiche juste toutes les recettes).
-- Ajouter un système de filtre pour les recettes.
-- Ajouter un service pour envoyer les informations du controller du header vers les autres pages.
+- Ajouter un système de filtre pour les recettes, tri alphabétique, par note moyenne, par indice de prix (1 à 3) ou même par temps ce qui peut aussi donner lieu à des rubriques telles que, 'repas étudiants', 'repas rapide', 'nos best-sellers'.
+- Ajouter un service pour envoyer les informations du controller du header vers les autres pages, car actuellement je suis obligé de mettre dans chaque render des controllers qui incluent sur leur modèle le header la variable pour ma fonction js.
