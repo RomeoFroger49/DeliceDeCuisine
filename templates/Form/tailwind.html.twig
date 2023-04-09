@@ -26,7 +26,7 @@
 {%- endblock form_widget_compound -%}
 
 {%- block form_widget -%}
-    {%- set attr = attr|merge({ class: attr.class|default('form-input block w-full mt-1 border border-black rounded') }) -%}
+    {%- set attr = attr|merge({ class: attr.class|default('form-input block w-full mt-1 border border-black rounded ') }) -%}
     {{- parent() -}}
 {%- endblock form_widget -%}
 
