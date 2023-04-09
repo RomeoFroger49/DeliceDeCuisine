@@ -51,6 +51,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->createdAt = new \DateTime();
         $this->commentaires = new ArrayCollection();
+        //a enlever après la création du premier user
         $this->roles = ['ROLE_ADMIN'];
     }
 
