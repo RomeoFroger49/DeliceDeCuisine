@@ -39,20 +39,19 @@ class RecetteRepository extends ServiceEntityRepository
         }
     }
 
-//    /**
-//     * @return Recette[] Returns an array of Recette objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Recette[] Returns an array of Recette objects
+    */
+    public function findByExampleField($value): array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.Name LIKE :val')
+            ->setParameter('val', '%' . $value . '%')
+            ->orderBy('r.noteMoyenne', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
 //    public function findOneBySomeField($value): ?Recette
 //    {
@@ -63,4 +62,5 @@ class RecetteRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
 }

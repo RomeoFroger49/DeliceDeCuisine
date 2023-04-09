@@ -20,18 +20,14 @@ class RecetteController extends AbstractController
 {
 
 
-    #[Route('/', name: 'app_recette_index', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository, PaginatorInterface $paginator, Request $request): Response
+    #[Route('/', name: 'app_recette_index', methods: ['GET', 'POST'])]
+    public function index(RecetteRepository $recetteRepository, Request $request): Response
     {
-        $articles = $paginator->paginate(
-            $recetteRepository->findAll(),
-            $request->query->getInt('page', 1),3
-        );
+        $articles = $recetteRepository->findBy([], ['noteMoyenne' => 'DESC']);
 
         return $this->render('recette/index.html.twig', [
             'recettesNav' => $recetteRepository->findAll(),
             'recettes' => $articles,
-            'user'=> $this->getUser(),
         ]);
     }
 
@@ -55,8 +51,17 @@ class RecetteController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_recette_show', methods: ['GET', 'POST'])]
-    public function show(Recette $recette, RecetteRepository $recetteRepository, Request $request, CommentaireRepository $commentaireRepository): Response
+    public function show(Recette $recette, Request $request,RecetteRepository $recetteRepository, CommentaireRepository $commentaireRepository): Response
     {
+        if($request->isMethod('POST') && $request->request->get('Research') != null) {
+            $search = $request->request->get('Research');
+            $name = $recetteRepository->findByExampleField($search);
+            $articles = array_unique($name, SORT_REGULAR);
+            return $this->render('recette/index.html.twig', [
+                'recettesNav' =>  $recetteRepository->findAll(),
+                'recettes'=> $articles ?? $recetteRepository->findAll(),
+            ]);
+        }
         $recettes_navbar = $recetteRepository->findAll();
         $commentaires = $commentaireRepository->findBy(['recette' => $recette]);
         $test = $this->getUser();

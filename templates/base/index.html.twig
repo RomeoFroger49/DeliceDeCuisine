@@ -1,9 +1,4 @@
-{% extends 'base.html.twig' %}
 
-
-
-
-{% block body %}
     <style>
         #searchInput + #list{
             display: none;
@@ -24,7 +19,7 @@
             <a class="px-3 text-red-500" href="{{ path('app_home') }}"  >Délice de Cuisine</a>
         </div>
         <div class="relative bg-white  border-2 border-white rounded" id="foodSearch">
-            <form  method="get">
+            <form  method="post">
                 <label class=" p-1 font-light">
                     <input class="" type="text" id="searchInput" oninput="filterList()" onmouseover="filterList()" name="Research" placeholder="Rechercher">
 
@@ -47,11 +42,11 @@
                 <a class="px-3" href="{{ path('app_login') }}">Connexion</a>
                 <a class="px-3" href="{{ path('app_register') }}">Inscription</a>
             {% elseif is_granted('ROLE_ADMIN') %}
-                <a class="px-3" href="{{ path('app_user_edit', {'id': user.userIdentifier}) }}">{{ user }}</a>
+                <a class="px-3" href="{{ path('app_user_edit', {'id': app.user.userIdentifier}) }}">{{ app.user }}</a>
                 <a class="px-3" href="{{ path('admin') }}">Admin</a>
                 <a class="px-3" href="{{ path('app_logout') }}">Deconnexion</a>
             {% else %}
-                <a class="px-3" href="{{ path('app_user_edit', {'id': user.userIdentifier}) }}">{{ user }}</a>
+                <a class="px-3" href="{{ path('app_user_edit', {'id': app.user.userIdentifier}) }}">{{ app.user }}</a>
                 <a class="px-3" href="{{ path('app_logout') }}">Deconnexion</a>
             {% endif %}
         </div>
@@ -60,4 +55,3 @@
     {% block javascripts %}
         <script src="{{ asset('Filter.js') }}"></script>
     {% endblock %}
-{% endblock %}

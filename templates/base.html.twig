@@ -16,6 +16,9 @@
         <style src="style.css"></style>
     </head>
     <body>
-        {% block body %}{% endblock %}
+    {% block header %}
+        {{ include('base/index.html.twig') }}
+    {% endblock %}
+    {% block body %}{% endblock %}
     </body>
 </html>

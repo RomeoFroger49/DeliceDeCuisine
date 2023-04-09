@@ -4,7 +4,6 @@
 
 {% block body %}
     <body class="relative h-screen w-screen font-semibold " style="background-color: rgb(251,244,232)">
-        {{ include('base/index.html.twig')}}
         <main class="h-full w-screen flex justify-center pt-4">
             <section class="mt-4 h-full w-3/5 flex justify-center">
                 <div class="w-3/4 h-full flex flex-col items-center ">
@@ -31,7 +30,6 @@
                         </div>
                     {% endfor %}
                     <div class="inline-flex items-center -space-x-px">
-                        {{ knp_pagination_render(recettes) }}
                     </div>
                 </div>
             </section>
