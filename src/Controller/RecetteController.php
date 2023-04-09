@@ -7,6 +7,7 @@ use App\Entity\Recette;
 use App\Form\RecetteType;
 use App\Repository\CommentaireRepository;
 use App\Repository\RecetteRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,11 +21,17 @@ class RecetteController extends AbstractController
 
 
     #[Route('/', name: 'app_recette_index', methods: ['GET'])]
-    public function index(RecetteRepository $recetteRepository,): Response
+    public function index(RecetteRepository $recetteRepository, PaginatorInterface $paginator, Request $request): Response
     {
+        $articles = $paginator->paginate(
+            $recetteRepository->findAll(),
+            $request->query->getInt('page', 1),3
+        );
+
         return $this->render('recette/index.html.twig', [
             'recettesNav' => $recetteRepository->findAll(),
-            'user' => $this->getUser(),
+            'recettes' => $articles,
+            'user'=> $this->getUser(),
         ]);
     }
 

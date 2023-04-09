@@ -3,16 +3,16 @@
 {% block title %}Recette index{% endblock %}
 
 {% block body %}
-    <body class="relative h-auto w-screen font-semibold " style="background-color: rgb(251,244,232)">
+    <body class="relative h-screen w-screen font-semibold " style="background-color: rgb(251,244,232)">
         {{ include('base/index.html.twig')}}
-        <main class="h-full w-screen flex justify-center py-4">
+        <main class="h-full w-screen flex justify-center pt-4">
             <section class="mt-4 h-full w-3/5 flex justify-center">
                 <div class="w-3/4 h-full flex flex-col items-center ">
                     <div class="flex flex-col justify-center items-center mb-2">
                         <h1 class="text-4xl font-bold text-center text-gray-800">Recettes</h1>
                     </div>
-                    {% for recette in recettesNav %}
-                        <div class="flex flex-row justify-between items-center w-full h-1/6 border-b-2 border-gray-300">
+                    {% for recette in recettes %}
+                        <div class="flex flex-row justify-between items-center w-full h-2/6 border-b-2 border-gray-300">
                             <div class="w-full h-64 bg-cover bg-center rounded-t " style="background-image: url({{ vich_uploader_asset(recette, recette.imageFile) }})" > </div>
                             <div class="flex flex-row justify-evenly items-center w-2/3 h-full">
                                 <div class="flex flex-col justify-evenly w-3/4 h-full">
@@ -30,6 +30,9 @@
                             <h2 class="text-2xl font-bold text-gray-800">Aucune recette</h2>
                         </div>
                     {% endfor %}
+                    <div class="inline-flex items-center -space-x-px">
+                        {{ knp_pagination_render(recettes) }}
+                    </div>
                 </div>
             </section>
         </main>
