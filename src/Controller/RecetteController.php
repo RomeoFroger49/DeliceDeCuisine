@@ -24,6 +24,15 @@ class RecetteController extends AbstractController
     public function index(RecetteRepository $recetteRepository, Request $request): Response
     {
         $articles = $recetteRepository->findBy([], ['noteMoyenne' => 'DESC']);
+        if($request->isMethod('POST') && $request->request->get('Research') != null) {
+            $search = $request->request->get('Research');
+            $name = $recetteRepository->findByExampleField($search);
+            $articles = array_unique($name, SORT_REGULAR);
+            return $this->render('recette/index.html.twig', [
+                'recettesNav' =>  $recetteRepository->findAll(),
+                'recettes'=> $articles ?? $recetteRepository->findAll(),
+            ]);
+        }
 
         return $this->render('recette/index.html.twig', [
             'recettesNav' => $recetteRepository->findAll(),
