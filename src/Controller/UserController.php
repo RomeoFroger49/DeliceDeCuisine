@@ -56,6 +56,10 @@ class UserController extends AbstractController
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, User $user, UserRepository $userRepository, RecetteRepository $recetteRepository, CommentaireRepository $commentaireRepository, SearchService $searchService): Response
     {
+        if($this->getUser()->getUserIdentifier() != $user->getUserIdentifier()) {
+            return $this->redirectToRoute('app_home');
+        }
+
         if($request->isMethod('POST') && $request->request->get('Research') != null) {
             $articles = $searchService->search($recetteRepository, $request);
             return $this->render('recette/index.html.twig', [
