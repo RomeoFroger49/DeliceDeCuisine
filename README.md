@@ -46,6 +46,7 @@ git clone https://github.com/RomeoFroger49/DeliceDeCuisine.git
 ```bash
 cd DeliceDeCuisine
 composer install
+npm install
 ```
 ###
 3. Configurez les variables d'environnement et la base de données dans le fichier .env.
